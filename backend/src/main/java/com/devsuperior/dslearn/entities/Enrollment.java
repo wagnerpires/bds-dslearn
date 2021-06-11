@@ -5,6 +5,8 @@ import com.devsuperior.dslearn.entities.pk.EnrollmentPK;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -20,6 +22,9 @@ public class Enrollment implements Serializable {
     private Instant refundMoment;
     private boolean available;   // Tipo primitivo para garantir apenas true ou false, a classe wrapper aceita null também
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentDone")
+    private Set<Lesson> lessonsDone = new HashSet<>();
 
     public Enrollment() {
 
