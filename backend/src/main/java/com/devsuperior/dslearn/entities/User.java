@@ -2,7 +2,9 @@ package com.devsuperior.dslearn.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,16 +25,18 @@ public class User implements Serializable {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications = new ArrayList<>();
+
     public User() {
 
     }
 
-    public User(Long id, String name, String email, String password, Set<Role> roles) {
+    public User(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -71,8 +75,14 @@ public class User implements Serializable {
         return roles;
     }
 
+    /*
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    */
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 
     @Override
